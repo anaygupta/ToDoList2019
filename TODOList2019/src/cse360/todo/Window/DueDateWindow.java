@@ -18,15 +18,16 @@ import javax.swing.SwingUtilities;
 
 import cse360.todo.Data.DueDate;
 import cse360.todo.ListBox.ListBox;
+import cse360.todo.ListBox.ModifiableListBox;
 import cse360.todo.Window.TodoButton;
 
 public class DueDateWindow extends JDialog{
 	
 	private static final long serialVersionUID = -3829842515450002408L;
 	
-	private ListBox box;
+	private ModifiableListBox box;
 	
-	public DueDateWindow(ListBox box) {
+	public DueDateWindow(ModifiableListBox box) {
 		this.box = box;
 	}
 	

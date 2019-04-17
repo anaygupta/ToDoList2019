@@ -39,7 +39,9 @@ public class InfoCard extends JPanel{
 		add.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				window.index.add(new ListBox(InfoCard.this.window, false));
+				AddTaskWindow atw = new AddTaskWindow(InfoCard.this.window, null);
+				atw.start();
+				//window.index.add(new ListBox(InfoCard.this.window, false));
 			}
 		});
 		this.add(add, c);

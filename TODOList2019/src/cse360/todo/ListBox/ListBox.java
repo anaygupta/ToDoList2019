@@ -21,7 +21,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
 
 import cse360.todo.Data.ListBoxData;
+import cse360.todo.Window.AddTaskWindow;
 import cse360.todo.Window.DueDateWindow;
+import cse360.todo.Window.InfoCard;
 import cse360.todo.Window.TodoButton;
 import cse360.todo.Window.Window;
 
@@ -29,9 +31,9 @@ public class ListBox extends JPanel{
 	
 	private static final long serialVersionUID = 7375636548822753668L;
 	
-	private TodoTextArea listItem;
-	private TodoButton remove, date, status, edit;
-	private JTextField name;
+	private JTextArea listItem;
+	private TodoButton remove, status, edit;
+	private JTextField name, date;
 	//private JComboBox<String> status;
 	private JLabel priority;
 	public UpDownArrowPanel ud;
@@ -72,7 +74,6 @@ public class ListBox extends JPanel{
 		
 	}
 	
-	
 	public JPanel buildDataRow() {
 		
 		JPanel data = new JPanel(new GridBagLayout());
@@ -90,21 +91,11 @@ public class ListBox extends JPanel{
 		name.setColumns(10);
 		name.setToolTipText("Name");
 		name.setMinimumSize(new Dimension(110, 18));
+		name.setBackground(Color.white);
+		name.setEditable(false);
 
 		data.add(name, c);
 		
-		name.addKeyListener(new KeyListener(){
-			@Override
-			public void keyPressed(KeyEvent arg0) {}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				saveData.setName(name.getText());
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {}
-		});
 		
 		//1
 		c.gridx = 1;
@@ -116,27 +107,27 @@ public class ListBox extends JPanel{
 		
 		//2
 		c.gridx = 2;
-		date = new TodoButton(saveData.getDate().getMonth() + "/" + saveData.getDate().getDay() + "/" + saveData.getDate().getYear());
-		date.setToolTipText("Set Due Date");
+		date = new JTextField(saveData.getDate().getMonth() + "/" + saveData.getDate().getDay() + "/" + saveData.getDate().getYear());
+		date.setBorder(BorderFactory.createLineBorder(Color.black));
+		date.setBackground(Color.white);
+		date.setColumns(10);
+		date.setToolTipText("Name");
+		date.setMinimumSize(new Dimension(110, 18));
+		date.setEditable(false);
+		date.setToolTipText("Due Date");
 		data.add(date, c);
-		
-		date.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DueDateWindow ddw = new DueDateWindow(ListBox.this);
-				ddw.start();
-				
-			}
-			
-		});
 		
 		//3 
 		c.gridx = 3;
 		c.insets = new Insets(0,0,0,0);
 		c.weighty = 1.0;
 		c.weightx = 1.0;
-		listItem = new TodoTextArea(this);
+		listItem = new JTextArea();
+		listItem.setLineWrap(true);
+		listItem.setWrapStyleWord(true);
+		listItem.setBorder(BorderFactory.createLineBorder(Color.black));
+		listItem.setToolTipText("Description");
+		listItem.setEditable(false);
 		data.add(listItem, c);
 		
 		
@@ -163,6 +154,15 @@ public class ListBox extends JPanel{
 		c.insets = new Insets(0,0,0,0);
 		
 		edit = new TodoButton("Edit");
+		edit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AddTaskWindow atw = new AddTaskWindow(ListBox.this.window, ListBox.this);
+				atw.start();
+			}
+			
+		});
 		utility.add(edit, c);
 		
 		JPanel padding = new JPanel();
@@ -234,7 +234,7 @@ public class ListBox extends JPanel{
 
 	
 	public JTextArea getText(){
-		return listItem.getTextArea();
+		return listItem;
 	}
 
 	public ListBoxData getSaveData() {

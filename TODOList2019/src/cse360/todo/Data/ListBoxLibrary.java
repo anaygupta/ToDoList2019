@@ -118,7 +118,7 @@ public class ListBoxLibrary {
 		boxes.removeAll(boxes);
 	}
 	
-	private void populateView(){
+	public void populateView(){
 		window.view.removeAll();
 		for(ListBox l : boxes){
 			window.view.add(l);

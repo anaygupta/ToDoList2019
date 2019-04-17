@@ -63,8 +63,9 @@ public class Window {
 		list.setViewportView(view);
 		Menu menu = new Menu(this);
 		frame.setJMenuBar(menu.getMenu());
-		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
 	}
 	
 	public void start(){
