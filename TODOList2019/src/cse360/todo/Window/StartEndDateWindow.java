@@ -61,7 +61,6 @@ public class StartEndDateWindow extends JDialog{
 		//1 0
 		c.gridy = 1;
 		c.gridx = 0;
-		c.weighty = 1.0;
 		JLabel endDate = new JLabel("End Date: " + box.getSaveData().getStatus().getEndDate().getMonth() + "/" + box.getSaveData().getStatus().getEndDate().getDay() + "/" + box.getSaveData().getStatus().getEndDate().getYear());
 		endDate.setHorizontalAlignment(SwingConstants.CENTER);
 		endDate.setFont(theFont);

@@ -64,17 +64,17 @@ public class ModifiableListBox extends JPanel{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//0
-		c.anchor = GridBagConstraints.NORTH;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.insets = new Insets(0,0,0,5);
+		c.insets = new Insets(0, 25, 1, 25);
 		priorityLabel = new JLabel("Priority Level: ");
 		data.add(priorityLabel, c);
 	
 				
 		//1
-		c.gridx = 1;
+		c.gridy = 1;
 		c.weighty = 0.0;
 		c.weightx = 0.0;
 		priority = new JTextField("" + saveData.getPriority());
@@ -86,12 +86,12 @@ public class ModifiableListBox extends JPanel{
 		data.add(priority, c);
 		
 		//2
-		c.gridx = 2;
+		c.gridy = 2;
 		dueDateLabel = new JLabel("Due Date: ");
 		data.add(dueDateLabel, c);
 		
 		//3
-		c.gridx = 3;
+		c.gridy = 3;
 		date = new TodoButton(saveData.getDate().getMonth() + "/" + saveData.getDate().getDay() + "/" + saveData.getDate().getYear());
 		date.setToolTipText("Set Due Date");
 		data.add(date, c);
@@ -109,12 +109,12 @@ public class ModifiableListBox extends JPanel{
 		data.add(date, c);
 		
 		//4
-		c.gridx = 4;
+		c.gridy = 4;
 		descriptionLabel = new JLabel("Description: ");
 		data.add(descriptionLabel, c);
 		
 		//5 
-		c.gridx = 5;
+		c.gridy = 5;
 		c.weighty = 1.0;
 		c.weightx = 1.0;
 		listItem = new JTextArea(saveData.getText());
@@ -125,15 +125,14 @@ public class ModifiableListBox extends JPanel{
 		data.add(listItem, c);
 		
 		//6
-		c.gridx = 6;
+		c.gridy = 6;
 		c.weightx = 0;
 		c.weighty = 0;
 		statusLabel = new JLabel("Status: ");
 		data.add(statusLabel, c);
 		
 		//7
-		c.gridx = 7;
-		c.insets = new Insets(0,0,0,0);
+		c.gridy = 7;
 		status = new JComboBox<String>();
 		status.addItem(Status.NOT_STARTED);
 		status.addItem(Status.IN_PROGRESS);

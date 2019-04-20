@@ -95,7 +95,7 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 		priority.setBorder(BorderFactory.createLineBorder(Color.black));
 		priority.setColumns(3);
 		priority.setToolTipText("Priority Level");
-		priority.setMinimumSize(new Dimension(110, 18));
+		priority.setMinimumSize(new Dimension(35, 18));
 		priority.setBackground(Color.white);
 		priority.setEditable(false);
 		data.add(priority, c);
@@ -112,7 +112,7 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 		date.setBackground(Color.white);
 		date.setColumns(10);
 		date.setToolTipText("Name");
-		date.setMinimumSize(new Dimension(110, 18));
+		date.setMinimumSize(new Dimension(76, 18));
 		date.setEditable(false);
 		date.setToolTipText("Due Date");
 		data.add(date, c);
@@ -131,6 +131,7 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 		listItem.setWrapStyleWord(true);
 		listItem.setBorder(BorderFactory.createLineBorder(Color.black));
 		listItem.setToolTipText("Description");
+		listItem.setMinimumSize(new Dimension(100, 18));
 		listItem.setEditable(false);
 		data.add(listItem, c);
 		

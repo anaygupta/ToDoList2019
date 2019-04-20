@@ -47,7 +47,7 @@ public class DueDateWindow extends JDialog{
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		this.setSize(screenSize.width / 5, screenSize.height / 3);
+		this.setSize(screenSize.width / 5, screenSize.height / 4);
 		this.setLocationRelativeTo(null);
 		this.setModal(true);
 		JPanel datePanel = datePanel();

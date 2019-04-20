@@ -3,9 +3,11 @@ package cse360.todo.Window;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -35,7 +37,7 @@ public class AddTaskWindow extends JDialog{
 			this.setTitle("Edit Task");
 		}
 		this.setLayout(new GridBagLayout());
-		this.setSize(screenSize.width / 3, screenSize.height / 3);
+		this.setSize(screenSize.width / 4, screenSize.height / 3);
 		this.setLocationRelativeTo(null);
 		this.setModal(true);
 		GridBagConstraints c = new GridBagConstraints();
@@ -43,18 +45,13 @@ public class AddTaskWindow extends JDialog{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		c.weightx = 1;
-		
-		//0 0
-		c.gridy = 0;
-		c.gridx = 0;
-		JPanel filler = new JPanel();
-		this.add(filler, c);
-		c.weightx = 0;
 		c.gridx = 1;
+		c.gridy = 2;
+		c.insets = new Insets(0, 50, 10, 50);
 		if(box == null) {
 			TodoButton add = new TodoButton("Add");
 			this.add(add, c);
+			c.insets = new Insets(0, 0, 0, 0);
 			add.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -113,6 +110,8 @@ public class AddTaskWindow extends JDialog{
 			});
 		}else {
 			TodoButton edit = new TodoButton("Apply");
+			this.add(edit, c);
+			c.insets = new Insets(0, 0, 0, 0);
 			edit.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -167,9 +166,7 @@ public class AddTaskWindow extends JDialog{
 				}
 				
 			});
-			this.add(edit, c);
 		}
-		
 		
 		//0 1
 		c.gridy = 1;
@@ -192,11 +189,7 @@ public class AddTaskWindow extends JDialog{
 		
 		
 		this.setResizable(true);
-		if(box != null) {
-			this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		}else {
-			this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		}
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		this.setVisible(true);
 		
@@ -209,7 +202,5 @@ public class AddTaskWindow extends JDialog{
 				build();
 			}
 		});
-		
 	}
-	
 }
