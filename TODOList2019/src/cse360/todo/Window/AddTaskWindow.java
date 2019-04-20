@@ -69,6 +69,13 @@ public class AddTaskWindow extends JDialog{
 						JOptionPane.showMessageDialog(AddTaskWindow.this, "Priority must be an integer!", "Add Error", JOptionPane.ERROR_MESSAGE);
 						valid = false;
 					}
+					
+					if(valid) {
+						if(parsed <= 0) {
+							JOptionPane.showMessageDialog(AddTaskWindow.this, "Priority must be greater than 0!", "Add Error", JOptionPane.ERROR_MESSAGE);
+							valid = false;
+						}
+					}
 						
 					if(valid) {
 						for(ListBox boxes : AddTaskWindow.this.window.index.getListBoxes()) {
@@ -120,7 +127,14 @@ public class AddTaskWindow extends JDialog{
 						JOptionPane.showMessageDialog(AddTaskWindow.this, "Priority must be an integer!", "Add Error", JOptionPane.ERROR_MESSAGE);
 						valid = false;
 					}
-						
+					
+					if(valid) {
+						if(parsed <= 0) {
+							JOptionPane.showMessageDialog(AddTaskWindow.this, "Priority must be greater than 0!", "Add Error", JOptionPane.ERROR_MESSAGE);
+							valid = false;
+						}
+					}
+					
 					if(valid) {
 						int it = 0;
 						for(ListBox boxes : AddTaskWindow.this.window.index.getListBoxes()) {
