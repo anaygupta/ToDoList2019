@@ -3,42 +3,58 @@ import javax.swing.JFileChooser;
 
 import cse360.todo.Window.Window;
 
-public class FileChooser {
-	
+public class FileChooser 
+{	
 	private JFileChooser chooser;
 	public Window window;
 	
-	public FileChooser(Window window) {
+	public FileChooser(Window window) 
+	{
 		this.window = window;
 		chooser = new JFileChooser();
 	}
 	
-	public void showSaveAs(){
+	//this function shows the Save As window frame
+	public void showSaveAs()
+	{
 		chooser.setDialogTitle("Save As");
 		chooser.setApproveButtonText("Save");
-		int selection = chooser.showOpenDialog(window.frame);
 		
-		if(selection == JFileChooser.APPROVE_OPTION){
-			window.data.saveAs(chooser.getCurrentDirectory().getAbsolutePath(), chooser.getSelectedFile().getName(), this.window);
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int selection = chooser.showSaveDialog(window.frame);
+		String path = chooser.getSelectedFile().getAbsolutePath();
+		String filename = chooser.getSelectedFile().getName();
+
+		if(selection == JFileChooser.APPROVE_OPTION)
+		{
+			window.data.saveAs(path, filename, this.window);
 		}
 	}
 	
-	public void showExportToTxt(){
-		chooser.setDialogTitle("Export to .txt");
+	public void showExportToTxt()
+	{
+		chooser.setDialogTitle("Export to Text File (.txt)");
 		chooser.setApproveButtonText("Export");
-		int selection = chooser.showOpenDialog(window.frame);
 		
-		if(selection == JFileChooser.APPROVE_OPTION){
-			window.data.exportToTxt(chooser.getCurrentDirectory().getAbsolutePath(), chooser.getSelectedFile().getName(), this.window);
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int selection = chooser.showSaveDialog(window.frame);
+		String path = chooser.getSelectedFile().getAbsolutePath();
+		String filename = chooser.getSelectedFile().getName();
+		
+		if(selection == JFileChooser.APPROVE_OPTION)
+		{
+			window.data.exportToTxt(path, filename, this.window);
 		}
 	}
 	
-	public void showOpen(){
+	public void showOpen()
+	{
 		chooser.setDialogTitle("Open");
-		chooser.setApproveButtonText("Open");
+		chooser.setApproveButtonText("Open File");
 		int selection = chooser.showOpenDialog(window.frame);
 		
-		if(selection == JFileChooser.APPROVE_OPTION){
+		if(selection == JFileChooser.APPROVE_OPTION)
+		{
 			window.data.openFile(chooser.getSelectedFile().getAbsolutePath(), window);
 		}
 	}
