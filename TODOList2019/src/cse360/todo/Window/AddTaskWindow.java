@@ -24,16 +24,21 @@ public class AddTaskWindow extends JDialog{
 	private ListBox box;
 	private ModifiableListBox lbox;
 	
-	public AddTaskWindow(Window window,ListBox box) {
+	public AddTaskWindow(Window window,ListBox box) 
+	{
 		this.window = window;
 		this.box = box;
 	}
 	
-	private void build() {
+	private void build() 
+	{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		if(box == null) {
+		if(box == null)
+		{
 			this.setTitle("Add Task");
-		}else {
+		}
+		else 
+		{
 			this.setTitle("Edit Task");
 		}
 		this.setLayout(new GridBagLayout());

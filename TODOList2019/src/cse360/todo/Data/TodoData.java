@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.awt.Desktop;
 
 import cse360.todo.ListBox.ListBox;
 import cse360.todo.Window.Window;
@@ -23,20 +24,22 @@ public class TodoData implements Serializable{
 	/**
 	 * An ArrayList of type ListBoxData. Contains all the save data for the current window
 	 */
-	private ArrayList<ListBoxData> allSaveData;
+	private ArrayList<ListBoxData> allData;
 	
 	/**
-	 * Default contructor. Initializes the data to an empty array list
+	 * Default constructor. Initializes the data to an empty array list
 	 * @return a TodoData object
 	 */
-	public TodoData() {
+	public TodoData() 
+	{
 		setAllSaveData(new ArrayList<>());
 	}
 	
 	/**
 	 * Resets the save data to an empty array list
 	 */
-	public void reset(){
+	public void reset()
+	{
 		setAllSaveData(new ArrayList<>());
 		filePath = null;
 	}
@@ -44,7 +47,8 @@ public class TodoData implements Serializable{
 	/**
 	 * @return The file path of the current data list.
 	 */
-	public String getFilePath() {
+	public String getFilePath() 
+	{
 		return filePath;
 	}
 
@@ -52,41 +56,45 @@ public class TodoData implements Serializable{
 	 * Sets the file path to filePath
 	 * @param filePath The new filePath for the TodoData object
 	 */
-	public void setFilePath(String filePath) {
+	public void setFilePath(String filePath) 
+	{
 		this.filePath = filePath;
 	}
 	
 	
-	public void exportToTxt(String path, String name, Window window) {
-		path = path + FileSystems.getDefault().getSeparator() + name + ".txt";
-		ArrayList<ListBoxData> allSaveData = window.index.getAllSaveData();
-		if(allSaveData.size() == 0) {
+	public void exportToTxt(String path, String name, Window window) 
+	{
+		path = path + ".txt";
+		ArrayList<ListBoxData> allData = window.index.getAllSaveData();
+		if(allData.size() == 0) 
+		{
 			return;
 		}
 		File file = new File(path);
-		try{
-		      if(!file.exists()) {
-		    	  file.createNewFile();
-		      }else {
+		try
+		{
+		      if(file.exists()) 
+		      {
 		    	  file.delete();
 		      }
 		      file.createNewFile();
 		      PrintWriter writer = new PrintWriter(file, "UTF-8");
-		      for(ListBoxData data : allSaveData) {
+		      for (ListBoxData data : allData)
+		      {
 		    	  writer.println("Priority Level: " + data.getPriority() + 
 		    			  		 " Due Date: " + data.getDate().getMonth() + "/" + data.getDate().getDay() + "/" + data.getDate().getYear() +
 		    			  		 " Description: " + data.getText() +
-		    			  		 " Status: " + data.getStatus().getStatusText() +
-		    			  		 " Start Date: " + data.getStatus().getStartDate().getMonth() + "/" + data.getStatus().getStartDate().getDay() + "/" + data.getStatus().getStartDate().getYear() +
-		    			  		 " End Date: " + data.getStatus().getEndDate().getMonth() + "/" + data.getStatus().getEndDate().getDay() + "/" + data.getStatus().getEndDate().getYear());
+		    			  		 " Status: " + data.getStatus().getStatusText());
 		      }
 		      
 		      writer.flush();
 		      writer.close();
 		    }
-		    catch (Exception e){
+			catch (Exception e)
+			{
 		      e.printStackTrace();
 		    }
+		
 	}
 	
 	/**
@@ -94,10 +102,11 @@ public class TodoData implements Serializable{
 	 * @param path The directory to save the file to
 	 * @param name The name of the file
 	 */
-	public void saveAs(String path, String name, Window window){
-		this.filePath = path + FileSystems.getDefault().getSeparator() + name + ".todo2019";
+	public void saveAs(String path, String name, Window window)
+	{
+		this.filePath = path + ".todo2019";
 		File f = new File(filePath);
-		this.allSaveData = window.index.getAllSaveData();
+		this.allData = window.index.getAllSaveData();
 		saveFile(this, f);
 		window.infoCard.setCurrentPathText("Current Path: " + this.filePath);
 	}
@@ -106,9 +115,11 @@ public class TodoData implements Serializable{
 	 * Saves the file at the current location stored in filePath. If it does not exist,
 	 * the method does nothing
 	 */
-	public void saveFile(ListBoxLibrary index){
-		if(this.filePath != null){
-			this.allSaveData = index.getAllSaveData();
+	public void saveFile(ListBoxLibrary index)
+	{
+		if(this.filePath != null)
+		{
+			this.allData = index.getAllSaveData();
 			saveFile(this, new File(this.getFilePath()));
 		}
 	}
@@ -148,7 +159,7 @@ public class TodoData implements Serializable{
 	private void create(Window window, TodoData newData){
 		
 		try {
-			allSaveData = newData.getAllSaveData();
+			allData = newData.getAllSaveData();
 		}catch(NullPointerException e) {
 			return;
 		}
@@ -156,7 +167,7 @@ public class TodoData implements Serializable{
 		filePath = newData.getFilePath();
 
 		
-		for(ListBoxData saveData : allSaveData){
+		for(ListBoxData saveData : allData){
 			ListBox box = new ListBox(window);
 			box.setSaveData(saveData);
 			box.updatePriorityDisplay(saveData.getPriority());
@@ -174,11 +185,12 @@ public class TodoData implements Serializable{
 	 * @param object the TodoData object to be saved to file
 	 * @param file the file to be saved to
 	 */
-	public static void saveFile(Object object, File file){
-	    try{
-	      if(!file.exists()) {
-	    	  file.createNewFile();
-	      }else {
+	public static void saveFile(Object object, File file)
+	{
+	    try
+	    {
+	      if(file.exists())
+	      { 
 	    	  file.delete();
 	      }
 	      file.createNewFile();
@@ -187,7 +199,8 @@ public class TodoData implements Serializable{
 	      oos.flush();
 	      oos.close();
 	    }
-	    catch (Exception e){
+	    catch (Exception e)
+	    {
 	      e.printStackTrace();
 	    }
 	  }
@@ -197,8 +210,10 @@ public class TodoData implements Serializable{
 	 * @param file the file to read from
 	 * @return the object to be casted into a TodoData
 	 */
-	  public static Object loadFile(File file){
-	    try{
+	  public static Object loadFile(File file)
+	  {
+	    try
+	    {
 	      ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 	      Object object = ois.readObject();
 	      ois.close();
@@ -212,16 +227,18 @@ public class TodoData implements Serializable{
 		 * returns the saved data
 		 * @return the saved data 
 		 */
-	  public ArrayList<ListBoxData> getAllSaveData() {
-			return allSaveData;
+	  public ArrayList<ListBoxData> getAllSaveData() 
+	  {
+			return allData;
 	  }
 
 	  /**
 		 * changes the value of the saved data to the passed parameter. If the file is not saved, these changes are not permanent. 
 		 * @param allSaveData the saved data to be used
 		 */
-	  public void setAllSaveData(ArrayList<ListBoxData> allSaveData) {
-			this.allSaveData = allSaveData;
+	  public void setAllSaveData(ArrayList<ListBoxData> allData) 
+	  {
+			this.allData = allData;
 	  }
 
 }
