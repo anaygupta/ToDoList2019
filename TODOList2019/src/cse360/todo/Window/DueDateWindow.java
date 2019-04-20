@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import cse360.todo.Data.DueDate;
-import cse360.todo.ListBox.ListBox;
 import cse360.todo.ListBox.ModifiableListBox;
 import cse360.todo.Window.TodoButton;
 
@@ -25,15 +24,27 @@ public class DueDateWindow extends JDialog{
 	
 	private static final long serialVersionUID = -3829842515450002408L;
 	
-	private ModifiableListBox box;
+	public static final int DUE_DATE = 0;
+	public static final int START_DATE = 1;
+	public static final int END_DATE = 2;
 	
-	public DueDateWindow(ModifiableListBox box) {
+	private ModifiableListBox box;
+	private int mode;
+	
+	public DueDateWindow(ModifiableListBox box, int mode) {
 		this.box = box;
+		this.mode = mode;
 	}
 	
 	private void build(){
-		this.setTitle("Set Due Date");
-		//this.setIconImages(window.icon.getIcons());
+		if(mode == DueDateWindow.DUE_DATE) {
+			this.setTitle("Set Due Date");
+		}else if(mode == DueDateWindow.START_DATE) {
+			this.setTitle("Set Start Date");
+		}else {
+			this.setTitle("Set End Date");
+		}
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		this.setSize(screenSize.width / 5, screenSize.height / 3);
@@ -42,23 +53,25 @@ public class DueDateWindow extends JDialog{
 		JPanel datePanel = datePanel();
 		
 		this.add(datePanel);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		this.setResizable(true);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
 	private JPanel datePanel(){
 		JPanel dueDate = new JPanel();
-		dueDate.setBorder(BorderFactory.createTitledBorder("Due Date"));
+		if(mode == DueDateWindow.DUE_DATE) {
+			dueDate.setBorder(BorderFactory.createTitledBorder("Due Date"));
+		}else if(mode == DueDateWindow.START_DATE) {
+			dueDate.setBorder(BorderFactory.createTitledBorder("Start Date"));
+		}else {
+			dueDate.setBorder(BorderFactory.createTitledBorder("End Date"));
+		}
+		
 		
 		JComboBox<String> months = new JComboBox<String>();
 		for(String m : DueDate.monthNames()){
@@ -79,19 +92,52 @@ public class DueDateWindow extends JDialog{
 		}
 		dueDate.add(years);
 		
-		if(box.getSaveData().getDate() != null){
-			Date date = box.getSaveData().getDate().getDate();
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
-			months.setSelectedIndex(cal.get(Calendar.MONTH));
-			years.setSelectedItem(cal.get(Calendar.YEAR));
-			days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
-		}else{
-			Calendar cal = Calendar.getInstance();
-			months.setSelectedIndex(cal.get(Calendar.MONTH));
-			years.setSelectedItem(cal.get(Calendar.YEAR));
-			days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
+		
+		if(mode == DueDateWindow.DUE_DATE) {
+			if(box.getSaveData().getDate() != null){
+				Date date = box.getSaveData().getDate().getDate();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				months.setSelectedIndex(cal.get(Calendar.MONTH));
+				years.setSelectedItem(cal.get(Calendar.YEAR));
+				days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
+			}else{
+				Calendar cal = Calendar.getInstance();
+				months.setSelectedIndex(cal.get(Calendar.MONTH));
+				years.setSelectedItem(cal.get(Calendar.YEAR));
+				days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
+			}
+		}else if(mode == DueDateWindow.START_DATE) {
+			if(box.getSaveData().getStatus().getStartDate().getDate() != null){
+				Date date = box.getSaveData().getStatus().getStartDate().getDate();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				months.setSelectedIndex(cal.get(Calendar.MONTH));
+				years.setSelectedItem(cal.get(Calendar.YEAR));
+				days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
+			}else{
+				Calendar cal = Calendar.getInstance();
+				months.setSelectedIndex(cal.get(Calendar.MONTH));
+				years.setSelectedItem(cal.get(Calendar.YEAR));
+				days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
+			}
+		}else {
+			if(box.getSaveData().getStatus().getEndDate().getDate() != null){
+				Date date = box.getSaveData().getStatus().getEndDate().getDate();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				months.setSelectedIndex(cal.get(Calendar.MONTH));
+				years.setSelectedItem(cal.get(Calendar.YEAR));
+				days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
+			}else{
+				Calendar cal = Calendar.getInstance();
+				months.setSelectedIndex(cal.get(Calendar.MONTH));
+				years.setSelectedItem(cal.get(Calendar.YEAR));
+				days.setSelectedItem(cal.get(Calendar.DAY_OF_MONTH));
+			}
 		}
+		
+		
 		
 		months.addActionListener(new ActionListener(){
 			@Override
@@ -132,9 +178,16 @@ public class DueDateWindow extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				DueDate addDate = new DueDate(months.getSelectedIndex() + 1,  days.getItemAt(days.getSelectedIndex()), years.getItemAt(years.getSelectedIndex()));
-				if(DueDate.isFutureDate(addDate.getDate())){
-					box.getSaveData().setDate(addDate);
-					box.updateDueDateDisplay(months.getSelectedIndex() + 1,  days.getItemAt(days.getSelectedIndex()), years.getItemAt(years.getSelectedIndex()));
+				if(DueDate.isFutureDate(addDate)){
+					if(mode == DueDateWindow.DUE_DATE) {
+						box.getSaveData().setDate(addDate);
+						box.updateDueDateDisplay(months.getSelectedIndex() + 1,  days.getItemAt(days.getSelectedIndex()), years.getItemAt(years.getSelectedIndex()));
+					}else if(mode == DueDateWindow.START_DATE) {
+						box.getSaveData().getStatus().setStartDate(addDate);
+					}else {
+						box.getSaveData().getStatus().setEndDate(addDate);
+					}
+					DueDateWindow.this.dispose();
 				}else{
 					JOptionPane.showMessageDialog(DueDateWindow.this, "Date must be in the future!", "Date Error", JOptionPane.WARNING_MESSAGE);
 					Calendar cal = Calendar.getInstance();
@@ -147,7 +200,6 @@ public class DueDateWindow extends JDialog{
 			
 		});
 		dueDate.add(apply);
-		
 		return dueDate;
 	}
 	

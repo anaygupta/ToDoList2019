@@ -7,11 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -22,32 +19,33 @@ import javax.swing.plaf.basic.BasicArrowButton;
 
 import cse360.todo.Data.ListBoxData;
 import cse360.todo.Window.AddTaskWindow;
-import cse360.todo.Window.DueDateWindow;
-import cse360.todo.Window.InfoCard;
+import cse360.todo.Window.StartEndDateWindow;
 import cse360.todo.Window.TodoButton;
 import cse360.todo.Window.Window;
 
-public class ListBox extends JPanel{
+public class ListBox extends JPanel implements Comparable<ListBox>{
 	
 	private static final long serialVersionUID = 7375636548822753668L;
 	
+	public static final int COMPARE_PRIORITY = 0;
+	public static final int COMPARE_DUE_DATE = 1;
+	public static final int COMPARE_DESCRIPTION = 2;
+	
+	public static int compareMode = COMPARE_PRIORITY;
+	
 	private JTextArea listItem;
-	private TodoButton remove, status, edit;
-	private JTextField name, date;
-	//private JComboBox<String> status;
-	private JLabel priority;
+	private TodoButton remove, startEndDates, edit;
+	private JTextField priority, date, status;
+	private JLabel priorityLabel, dueDateLabel, descriptionLabel, statusLabel;
 	public UpDownArrowPanel ud;
 	private Window window;
 	public BasicArrowButton up, down;
 	
 	ListBoxData saveData;
 	
-	public ListBox(Window window, boolean load) {
+	public ListBox(Window window) {
 		this.window = window;
 		saveData = new ListBoxData();
-		if(!load){
-			window.data.getAllSaveData().add(saveData);
-		}
 		this.setLayout(new GridBagLayout());
 		this.setBorder(new EmptyBorder(10, 0, 0, 0));
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 5, 5, 5), BorderFactory.createCompoundBorder(new EtchedBorder(), new EmptyBorder(10, 10, 10, 10))));
@@ -85,28 +83,30 @@ public class ListBox extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.insets = new Insets(0,0,0,5);
-		
-		name = new JTextField("");
-		name.setBorder(BorderFactory.createLineBorder(Color.black));
-		name.setColumns(10);
-		name.setToolTipText("Name");
-		name.setMinimumSize(new Dimension(110, 18));
-		name.setBackground(Color.white);
-		name.setEditable(false);
-
-		data.add(name, c);
-		
-		
+		priorityLabel = new JLabel("Priority Level: ");
+		data.add(priorityLabel, c);
+	
+				
 		//1
 		c.gridx = 1;
 		c.weighty = 0.0;
 		c.weightx = 0.0;
-		priority = new JLabel("Priority Level: " + saveData.getPriority());
+		priority = new JTextField("" + saveData.getPriority());
+		priority.setBorder(BorderFactory.createLineBorder(Color.black));
+		priority.setColumns(3);
 		priority.setToolTipText("Priority Level");
+		priority.setMinimumSize(new Dimension(110, 18));
+		priority.setBackground(Color.white);
+		priority.setEditable(false);
 		data.add(priority, c);
 		
 		//2
 		c.gridx = 2;
+		dueDateLabel = new JLabel("Due Date: ");
+		data.add(dueDateLabel, c);
+		
+		//3
+		c.gridx = 3;
 		date = new JTextField(saveData.getDate().getMonth() + "/" + saveData.getDate().getDay() + "/" + saveData.getDate().getYear());
 		date.setBorder(BorderFactory.createLineBorder(Color.black));
 		date.setBackground(Color.white);
@@ -117,18 +117,41 @@ public class ListBox extends JPanel{
 		date.setToolTipText("Due Date");
 		data.add(date, c);
 		
-		//3 
-		c.gridx = 3;
-		c.insets = new Insets(0,0,0,0);
+		//4
+		c.gridx = 4;
+		descriptionLabel = new JLabel("Description: ");
+		data.add(descriptionLabel, c);
+		
+		//5 
+		c.gridx = 5;
 		c.weighty = 1.0;
 		c.weightx = 1.0;
-		listItem = new JTextArea();
+		listItem = new JTextArea(saveData.getText());
 		listItem.setLineWrap(true);
 		listItem.setWrapStyleWord(true);
 		listItem.setBorder(BorderFactory.createLineBorder(Color.black));
 		listItem.setToolTipText("Description");
 		listItem.setEditable(false);
 		data.add(listItem, c);
+		
+		//6
+		c.gridx = 6;
+		c.weightx = 0;
+		c.weighty = 0;
+		statusLabel = new JLabel("Status: ");
+		data.add(statusLabel, c);
+		
+		//7
+		c.gridx = 7;
+		c.insets = new Insets(0,0,0,0);
+		status = new JTextField("" + saveData.getStatus().getStatusText());
+		status.setBorder(BorderFactory.createLineBorder(Color.black));
+		status.setBackground(Color.white);
+		status.setColumns(10);
+		status.setToolTipText("Status");
+		status.setMinimumSize(new Dimension(110, 18));
+		status.setEditable(false);
+		data.add(status, c);
 		
 		
 		
@@ -176,26 +199,17 @@ public class ListBox extends JPanel{
 		c.weighty = 0;
 		c.weightx = 0;
 		
-		status = new TodoButton("Status");
-		utility.add(status);
-		
-		/*
-		status = new JComboBox<String>();
-		status.addItem("Not Started");
-		status.addItem("In Progress");
-		status.addItem("Finished");
-		data.add(status, c);
-		
-		status.addActionListener(new ActionListener() {
-
+		startEndDates = new TodoButton("Start / End Dates");
+		startEndDates.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				saveData.getStatus().setStatusIndex(status.getSelectedIndex());
-				
+				StartEndDateWindow sedw = new StartEndDateWindow(ListBox.this);
+				sedw.start();
 			}
 			
 		});
-		*/
+		utility.add(startEndDates);
+		
 		c.weightx = 0;
 		c.gridx = 4;
 		ud = new UpDownArrowPanel(window, this);
@@ -214,15 +228,11 @@ public class ListBox extends JPanel{
 	}
 	
 	
-	public void updateNameText(String nameText) {
-		if(this.name != null) {
-			this.name.setText(nameText);
-		}
-	}
+	
 	
 	public void updatePriorityDisplay(int priority) {
 		if(this.priority != null) {
-			this.priority.setText("Priority level: " + priority);
+			this.priority.setText("" + priority);
 		}
 	}
 	
@@ -232,6 +242,12 @@ public class ListBox extends JPanel{
 		}
 	}
 
+	public void updatePriorityStatus(String status) {
+		if(this.status != null) {
+			this.status.setText(status);
+		}
+	}
+	
 	
 	public JTextArea getText(){
 		return listItem;
@@ -244,6 +260,35 @@ public class ListBox extends JPanel{
 	public void setSaveData(ListBoxData saveData){
 		this.saveData = saveData;
 	}
-
+	
+	@Override
+	public int compareTo(ListBox other) {
+		if(compareMode == COMPARE_PRIORITY) {
+			if(this.getSaveData().getPriority() > other.getSaveData().getPriority()) {
+				return 1;
+			}else if (this.getSaveData().getPriority() == other.getSaveData().getPriority()) {
+				return 0;
+			}else {
+				return -1;
+			}
+		}else if(compareMode == COMPARE_DUE_DATE) {
+			if(this.getSaveData().getDate().getDate().getTime() > other.getSaveData().getDate().getDate().getTime()) {
+				return 1;
+			}else if (this.getSaveData().getDate().getDate().getTime() == other.getSaveData().getDate().getDate().getTime()) {
+				return 0;
+			}else {
+				return -1;
+			}
+		}else {
+			if(this.getSaveData().getText().compareToIgnoreCase(other.getSaveData().getText()) > 0) {
+				return 1;
+			}else if (this.getSaveData().getText().compareToIgnoreCase(other.getSaveData().getText()) < 0) {
+				return -1;
+			}else {
+				return 0;
+			}
+		}
+		
+	}
 	
 }

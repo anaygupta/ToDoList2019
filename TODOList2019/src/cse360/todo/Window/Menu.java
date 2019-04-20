@@ -10,7 +10,7 @@ public class Menu {
 
 	private JMenuBar menu;
 	private JMenu file, edit;
-	private JMenuItem newF, open, save, saveAs, exportTxt, removeAll;
+	private JMenuItem newF, open, save, saveAs, exportTxt, removeAll, sortByPriority, sortByDueDate, sortByDesc;
 	public Window window;
 	FileChooser chooser;
 	
@@ -29,6 +29,7 @@ public class Menu {
 				Menu.this.window.data.reset();
 				Menu.this.window.view.removeAll();
 				Menu.this.window.view.revalidate();
+				Menu.this.window.infoCard.setCurrentPathText("Current Path: None");
 			}
 			
 		});
@@ -48,7 +49,7 @@ public class Menu {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				window.data.saveFile();
+				window.data.saveFile(Menu.this.window.index);
 			}
 			
 		});
@@ -69,7 +70,7 @@ public class Menu {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				chooser.showExportToTxt();
 			}
 			
 		});
@@ -94,6 +95,42 @@ public class Menu {
 			
 		});
 		
+		sortByPriority = new JMenuItem("Sort by priority");
+		sortByPriority.setToolTipText("Sorts list by priority, smallest to largest");
+		sortByPriority.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Menu.this.window.index.sortByPriority();
+			}
+			
+		});
+		
+		sortByDueDate = new JMenuItem("Sort by due date");
+		sortByDueDate.setToolTipText("Sorts list by due date, closest to farthest away");
+		sortByDueDate.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Menu.this.window.index.sortByDueDate();
+			}
+			
+		});
+		
+		sortByDesc = new JMenuItem("Sort list by description");
+		sortByDesc.setToolTipText("Sorts list by description in alphabetical order");
+		sortByDesc.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Menu.this.window.index.sortByDescription();
+			}
+			
+		});
+		
+		edit.add(sortByPriority);
+		edit.add(sortByDueDate);
+		edit.add(sortByDesc);
 		edit.add(removeAll);
 		
 		menu.add(file);

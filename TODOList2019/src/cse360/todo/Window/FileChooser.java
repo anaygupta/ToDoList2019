@@ -19,7 +19,17 @@ public class FileChooser {
 		int selection = chooser.showOpenDialog(window.frame);
 		
 		if(selection == JFileChooser.APPROVE_OPTION){
-			window.data.saveAs(chooser.getCurrentDirectory().getAbsolutePath(), chooser.getSelectedFile().getName());
+			window.data.saveAs(chooser.getCurrentDirectory().getAbsolutePath(), chooser.getSelectedFile().getName(), this.window);
+		}
+	}
+	
+	public void showExportToTxt(){
+		chooser.setDialogTitle("Export to .txt");
+		chooser.setApproveButtonText("Export");
+		int selection = chooser.showOpenDialog(window.frame);
+		
+		if(selection == JFileChooser.APPROVE_OPTION){
+			window.data.exportToTxt(chooser.getCurrentDirectory().getAbsolutePath(), chooser.getSelectedFile().getName(), this.window);
 		}
 	}
 	

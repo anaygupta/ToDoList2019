@@ -27,6 +27,7 @@ public class Window {
 	public ListBoxLibrary index;
 	public TodoData data;
 	public ScrollPanel view;
+	public InfoCard infoCard;
 	//public ImageIconLib icon;
 	
 	public Window() {}
@@ -39,8 +40,6 @@ public class Window {
 		frame.setSize(screenSize.width / 2, (screenSize.height / 2) + (screenSize.height / 4));
 		frame.setLocationRelativeTo(null);
 		frame.add(container);
-		//icon = new ImageIconLib();
-		//frame.setIconImages(icon.getIcons());
 		container.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_START;
@@ -53,10 +52,11 @@ public class Window {
 		list.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		list.setWheelScrollingEnabled(true);
 		data = new TodoData();
-		ListBox b = new ListBox(this, false);
+		ListBox b = new ListBox(this);
 		index.add(b);
 		c.gridy = 0;
-		container.add(new InfoCard(this), c);
+		infoCard = new InfoCard(this);
+		container.add(infoCard, c);
 		c.weighty = 1.0;
 		c.gridy = 1;
 		container.add(list, c);
