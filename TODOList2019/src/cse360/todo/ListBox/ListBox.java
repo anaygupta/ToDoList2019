@@ -200,6 +200,7 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 		c.weighty = 0;
 		c.weightx = 0;
 		
+		
 		startEndDates = new TodoButton("Start / End Dates");
 		startEndDates.addActionListener(new ActionListener(){
 			@Override
@@ -209,7 +210,8 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 			}
 			
 		});
-		utility.add(startEndDates);
+		
+		utility.add(startEndDates, c);
 		
 		c.weightx = 0;
 		c.gridx = 4;

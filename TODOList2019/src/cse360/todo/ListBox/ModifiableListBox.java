@@ -71,7 +71,7 @@ public class ModifiableListBox extends JPanel{
 		c.insets = new Insets(0, 25, 1, 25);
 		priorityLabel = new JLabel("Priority Level: ");
 		data.add(priorityLabel, c);
-	
+
 				
 		//1
 		c.gridy = 1;
@@ -118,8 +118,7 @@ public class ModifiableListBox extends JPanel{
 		c.weighty = 1.0;
 		c.weightx = 1.0;
 		listItem = new JTextArea(saveData.getText());
-		listItem.setLineWrap(true);
-		listItem.setWrapStyleWord(true);
+        listItem.getDocument().putProperty("filterNewlines", true);
 		listItem.setBorder(BorderFactory.createLineBorder(Color.black));
 		listItem.setToolTipText("Description");
 		data.add(listItem, c);
