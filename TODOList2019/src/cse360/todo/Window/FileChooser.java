@@ -1,5 +1,9 @@
 package cse360.todo.Window;
+import java.io.File;
+
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import cse360.todo.Window.Window;
 
@@ -12,7 +16,23 @@ public class FileChooser
 	{
 		this.window = window;
 		chooser = new JFileChooser();
+		chooser.setFileFilter(new FileFilter() {
+			@Override
+			public String getDescription() {
+				return "TODO2019 Save Files (*.todo2019)";
+			}
+			@Override
+			public boolean accept(File file) {
+		       if (file.isDirectory()) {
+		           return true;
+		       } else {
+		           String filename = file.getName().toLowerCase();
+		           return filename.endsWith(".todo2019");
+		       }
+			}
+		});
 	}
+	
 	
 	//this function shows the Save As window frame
 	public void showSaveAs()
@@ -20,7 +40,6 @@ public class FileChooser
 		chooser.setDialogTitle("Save As");
 		chooser.setApproveButtonText("Save");
 		
-		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		int selection = chooser.showSaveDialog(window.frame);
 		if(selection == JFileChooser.APPROVE_OPTION)
 		{
@@ -53,7 +72,15 @@ public class FileChooser
 		
 		if(selection == JFileChooser.APPROVE_OPTION)
 		{
-			window.data.openFile(chooser.getSelectedFile().getAbsolutePath(), window);
+			int result = window.data.openFile(chooser.getSelectedFile().getAbsolutePath(), window);
+			if(result == 1)
+			{
+				JOptionPane.showMessageDialog(window.frame,
+						"Please select a save file with extension \".todo2019\".",
+						"Incompatible file type",
+						JOptionPane.ERROR_MESSAGE
+						);
+			}
 		}
 	}
 

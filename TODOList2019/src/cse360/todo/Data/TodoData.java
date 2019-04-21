@@ -110,7 +110,14 @@ public class TodoData implements Serializable
 	 */
 	public void saveAs(String path, String name, Window window)
 	{
-		this.filePath = path + ".todo2019";
+		if(path.endsWith(".todo2019"))
+		{
+			this.filePath = path;
+		}
+		else
+		{
+			this.filePath = path + ".todo2019";			
+		}
 		File f = new File(filePath);
 		this.allData = window.index.getAllSaveData();
 		saveFile(this, f);
@@ -135,17 +142,23 @@ public class TodoData implements Serializable
 	/**
 	 * @param path The path of the file to be opened
 	 * @param window the current window handle
+	 * @return 0 if open was successful, 1 if user tries to open wrong file type
 	 */
-	public void openFile(String path, Window window){
-		Object o = loadFile(new File(path));
-		TodoData data = (TodoData) o;
-		
-		remove(window);
-		
-		this.filePath = path;
-		
-		create(window, data);
-		window.infoCard.setCurrentPathText("Current Path: " + this.filePath);
+	public int openFile(String path, Window window){
+		if(path.endsWith(".todo2019"))
+		{
+			Object o = loadFile(new File(path));
+			TodoData data = (TodoData) o;
+			
+			remove(window);
+			
+			this.filePath = path;
+			
+			create(window, data);
+			window.infoCard.setCurrentPathText("Current Path: " + this.filePath);
+			return 0;
+		}
+		return 1;
 	}
 	
 	/**
