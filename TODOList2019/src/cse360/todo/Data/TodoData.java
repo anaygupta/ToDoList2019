@@ -14,7 +14,8 @@ import java.awt.Desktop;
 import cse360.todo.ListBox.ListBox;
 import cse360.todo.Window.Window;
 
-public class TodoData implements Serializable{
+public class TodoData implements Serializable
+{
 	
 	private static final long serialVersionUID = 5910887681330772799L;
 	/**
@@ -84,7 +85,9 @@ public class TodoData implements Serializable{
 		    	  writer.println("Priority Level: " + data.getPriority() + 
 		    			  		 " Due Date: " + data.getDate().getMonth() + "/" + data.getDate().getDay() + "/" + data.getDate().getYear() +
 		    			  		 " Description: " + data.getText() +
-		    			  		 " Status: " + data.getStatus().getStatusText());
+		    			  		 " Status: " + data.getStatus().getStatusText()+ 
+		    			  		 " Start Date: " + data.getStatus().getStartDate().getMonth() + "/" + data.getStatus().getStartDate().getDay() + "/" + data.getStatus().getStartDate().getYear() +
+		    			  		 " End Date: " + data.getStatus().getEndDate().getMonth() + "/" + data.getStatus().getEndDate().getDay() + "/" + data.getStatus().getEndDate().getYear());
 		      }
 		      
 		      writer.flush();

@@ -32,7 +32,8 @@ public class Window {
 	
 	public Window() {}
 	
-	private void build(){
+	private void build()
+	{
 		index = new ListBoxLibrary(this);
 		frame = new JFrame("To-Do List 2019");
 		JPanel container = new JPanel();
