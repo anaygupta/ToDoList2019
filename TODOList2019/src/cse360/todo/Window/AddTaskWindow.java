@@ -7,11 +7,9 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import cse360.todo.ListBox.ListBox;
@@ -194,7 +192,11 @@ public class AddTaskWindow extends JDialog{
 		
 		
 		this.setResizable(true);
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		if(box != null) {
+			this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		}else {
+			this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		}
 		
 		this.setVisible(true);
 		
