@@ -71,7 +71,9 @@ public class Status implements Serializable {
 	public void setEndDate(DueDate endDate) {
 		this.endDate = endDate;
 	}
-
+	/**
+	 * Sets the status depending on status index
+	 */
 	public String getStatusText() {
 		if(statusIndex == 0) {
 			return Status.NOT_STARTED;

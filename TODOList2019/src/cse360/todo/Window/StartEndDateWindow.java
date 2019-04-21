@@ -19,11 +19,16 @@ public class StartEndDateWindow extends JDialog{
 	
 	private static final long serialVersionUID = -1760487918848205500L;
 	private ListBox box;
-	
+	/**
+	 * Creates the StartEndDate window that attaches to the companion listbox
+	 * @param box the new box
+	 */
 	public StartEndDateWindow(ListBox box) {
 		this.box = box;
 	}
-	
+	/**
+	 * Builds the StartEndDateWindow
+	 */
 	private void build() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -39,7 +44,9 @@ public class StartEndDateWindow extends JDialog{
 		this.setResizable(true);
 		this.setVisible(true);
 	}
-	
+	/**
+	 * Creates the dates panel
+	 */
 	public JPanel datesPanel() {
 		JPanel datesPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -68,7 +75,9 @@ public class StartEndDateWindow extends JDialog{
 		
 		return datesPanel;
 	}
-	
+	/**
+	 * Puts build into a run queue
+	 */
 	public void start(){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override

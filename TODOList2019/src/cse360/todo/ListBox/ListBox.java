@@ -42,7 +42,10 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 	public BasicArrowButton up, down;
 	
 	ListBoxData saveData;
-	
+	/**
+	 * Crates a new ListBox in the passed window 
+	 * @param window the current window
+	 */
 	public ListBox(Window window) {
 		this.window = window;
 		saveData = new ListBoxData();
@@ -71,7 +74,10 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 		
 		
 	}
-	
+	/**
+	 * Builds the section of the row that contains the priority level, Due Date, Name, Description, and Status
+	 * @return half of the row
+	 */
 	public JPanel buildDataRow() {
 		
 		JPanel data = new JPanel(new GridBagLayout());
@@ -159,7 +165,10 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 		return data;
 		
 	}
-	
+	/**
+	 * Builds the section of the list box that contains the remove, edit, and start/end dates
+	 * @return half of the row
+	 */
 	public JPanel buildUtilityRow() {
 		JPanel utility = new JPanel(new GridBagLayout());
 		
@@ -230,38 +239,59 @@ public class ListBox extends JPanel implements Comparable<ListBox>{
 	
 	
 	
-	
+	/**
+	 * Refreshes the priority displayed for the task
+	 * @param priority the new priority
+	 */
 	public void updatePriorityDisplay(int priority) {
 		if(this.priority != null) {
 			this.priority.setText("" + priority);
 		}
 	}
-	
+	/**
+	 * Updates the due date being displayed
+	 * @param month new month
+	 * @param day new day
+	 * @param year new year
+	 */
 	public void updateDueDateDisplay(int month, int day, int year) {
 		if(this.date!= null) {
 			this.date.setText(month + "/" + day + "/" + year);
 		}
 	}
-
+	/**
+	 *Updates the priority status to the passed status
+	 *@param status new status
+	 */
 	public void updatePriorityStatus(String status) {
 		if(this.status != null) {
 			this.status.setText(status);
 		}
 	}
 	
-	
+	/**
+	 * Returns the JTextArea of the list box
+	 * @return listItem JTextArea that contains the description
+	 */
 	public JTextArea getText(){
 		return listItem;
 	}
-
+	/**
+	 * Returns the current saved data
+	 */
 	public ListBoxData getSaveData() {
 		return saveData;
 	}
-	
+	/**
+	 * Sets the saved data to the passed data
+	 * @param saveData the new saveData
+	 */
 	public void setSaveData(ListBoxData saveData){
 		this.saveData = saveData;
 	}
-	
+	/**
+	 * Compares this listbox to the listbox passed in the method. Compares using the current setting of compareMode.
+	 */
 	@Override
 	public int compareTo(ListBox other) {
 		if(compareMode == COMPARE_PRIORITY) {

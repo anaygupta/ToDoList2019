@@ -142,7 +142,9 @@ public class ListBoxLibrary {
 		}
 		window.view.revalidate();
 	}
-	
+	/**
+	 * Returns all of the saved data in an ArrayList of ListBoxData. 
+	 */
 	public ArrayList<ListBoxData> getAllSaveData(){
 		
 		ArrayList<ListBoxData> allSaveData = new ArrayList<>();
@@ -153,19 +155,25 @@ public class ListBoxLibrary {
 		
 		return allSaveData;
 	}
-	
+	/**
+	 * Sorts the Tasks based upon priority. 
+	 */
 	public void sortByPriority() {
 		ListBox.compareMode = ListBox.COMPARE_PRIORITY;
 		Collections.sort(boxes);
 		populateView();
 	}
-	
+	/**
+	 * Sorts the tasks based upon due date
+	 */
 	public void sortByDueDate() {
 		ListBox.compareMode = ListBox.COMPARE_DUE_DATE;
 		Collections.sort(boxes);
 		populateView();
 	}
-	
+	/**
+	 * Sorts the tasks based upon description
+	 */
 	public void sortByDescription() {
 		ListBox.compareMode = ListBox.COMPARE_DESCRIPTION;
 		Collections.sort(boxes);

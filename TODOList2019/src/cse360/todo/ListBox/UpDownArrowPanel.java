@@ -15,7 +15,9 @@ public class UpDownArrowPanel extends JPanel{
 	public TodoButton up, down;
 	private ListBox box;
 	private Window window;
-	
+	/**
+	 * Creates a new UpDownArrowPanel, which extends JPanel
+	 */
 	public UpDownArrowPanel(Window window, ListBox box) {
 		this.window = window;
 		this.box = box;

@@ -63,35 +63,54 @@ public class DueDate implements Serializable{
 	}
 	
 	
-	
+	/**
+	 * Returns the current time remaining for the task
+	 */
 	public long getTimeToGo(){
 		return date.getTime() - System.currentTimeMillis(); 
 	}
-
+	/**
+	 * Returns the tasks day
+	 */
 	public int getDay() {
 		return day;
 	}
-
+	/**
+	 * Sets the tasks day
+	 * @param day the new day for the task
+	 */
 	public void setDay(int day) {
 		this.day = day;
 	}
-
+	/**
+	 * Returns the tasks month 
+	 */
 	public int getMonth() {
 		return month;
 	}
-
+	/**
+	 * Sets the tasks month
+	 * @param month the new month
+	 */
 	public void setMonth(int month) {
 		this.month = month;
 	}
-
+	/**
+	 * Returns the tasks year
+	 */
 	public int getYear() {
 		return year;
 	}
-
+	/**
+	 * Sets the tasks year 
+	 * @param year the new year
+	 */
 	public void setYear(int year) {
 		this.year = year;
 	}
-
+	/**
+	 * Returns the date of the DueDate
+	 */
 	public Date getDate() {
 		return date;
 	}

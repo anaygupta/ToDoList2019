@@ -13,7 +13,9 @@ public class Menu
 	private JMenuItem newF, open, save, saveAs, exportTxt, removeAll, sortByPriority, sortByDueDate, sortByDesc;
 	public Window window;
 	FileChooser chooser;
-	
+	/**
+	 * Creates the menu objet
+	 */
 	public Menu(Window window) 
 	{
 		this.window = window;
@@ -139,7 +141,9 @@ public class Menu
 		menu.add(edit);
 
 	}
-	
+	/**
+	 * Returns the menu
+	 */
 	public JMenuBar getMenu(){
 		return menu;
 	}
