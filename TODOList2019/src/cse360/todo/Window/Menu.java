@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Menu 
 {
@@ -52,7 +53,13 @@ public class Menu
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				window.data.saveFile(Menu.this.window.index);
+				int result = window.data.saveFile(Menu.this.window.index);
+				if(result == 1)
+				{
+					JOptionPane.showMessageDialog(window.frame,
+							"Can not save as there is no current file in the path.\n"
+							+ "Please open a file using \"File > Open\", or save a new file using \"File > Save As\" first.");
+				}
 			}
 		});
 		saveAs = new JMenuItem("Save As...");

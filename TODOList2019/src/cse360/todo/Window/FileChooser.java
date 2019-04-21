@@ -22,11 +22,10 @@ public class FileChooser
 		
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		int selection = chooser.showSaveDialog(window.frame);
-		String path = chooser.getSelectedFile().getAbsolutePath();
-		String filename = chooser.getSelectedFile().getName();
-
 		if(selection == JFileChooser.APPROVE_OPTION)
 		{
+			String path = chooser.getSelectedFile().getAbsolutePath();
+			String filename = chooser.getSelectedFile().getName();
 			window.data.saveAs(path, filename, this.window);
 		}
 	}
@@ -38,11 +37,10 @@ public class FileChooser
 		
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		int selection = chooser.showSaveDialog(window.frame);
-		String path = chooser.getSelectedFile().getAbsolutePath();
-		String filename = chooser.getSelectedFile().getName();
-		
 		if(selection == JFileChooser.APPROVE_OPTION)
 		{
+			String path = chooser.getSelectedFile().getAbsolutePath();
+			String filename = chooser.getSelectedFile().getName();
 			window.data.exportToTxt(path, filename, this.window);
 		}
 	}

@@ -9,6 +9,9 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import java.awt.Desktop;
 
 import cse360.todo.ListBox.ListBox;
@@ -115,16 +118,18 @@ public class TodoData implements Serializable
 	}
 	
 	/**
-	 * Saves the file at the current location stored in filePath. If it does not exist,
-	 * the method does nothing
-	 */
-	public void saveFile(ListBoxLibrary index)
+	 * Saves the file at the current location stored in filePath.
+	 * @return 0 if the save was successful, 1 if the filePath was null
+	 */	
+	public int saveFile(ListBoxLibrary index)
 	{
 		if(this.filePath != null)
 		{
 			this.allData = index.getAllSaveData();
 			saveFile(this, new File(this.getFilePath()));
+			return 0;
 		}
+		return 1;
 	}
 	
 	/**
