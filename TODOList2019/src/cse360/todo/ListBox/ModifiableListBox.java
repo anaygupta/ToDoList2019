@@ -36,7 +36,10 @@ public class ModifiableListBox extends JPanel{
 	private int index;
 	
 	ListBoxData saveData;
-	
+	/**
+	 * Creates a modifiable list box with the given index
+	 * @param index the status index
+	 */
 	public ModifiableListBox(int index) {
 		nonUserStatusUpdate = false;
 		this.setIndex(index);
@@ -57,7 +60,9 @@ public class ModifiableListBox extends JPanel{
 		this.add(buildDataRow(), c);
 
 	}
-	
+	/**
+	 * Builds the section of the row that contains: Priority, Due Date, Description, and status
+	 */
 	public JPanel buildDataRow() {
 		
 		JPanel data = new JPanel(new GridBagLayout());
@@ -163,52 +168,81 @@ public class ModifiableListBox extends JPanel{
 		status.setSelectedIndex(saveData.getStatus().getStatusIndex());
 		return data;
 	}
-	
+	/**
+	 * @return the priority of the task in a JTextField
+	 */
 	public JTextField getPriority() {
 		return this.priority;
 	}
-	
+	/**
+	 * Sets the status index to the given value.
+	 * @param index the status index
+	 */
 	public void setSatusSelectedIndex(int index) {
 		if(this.status != null && index >= 0 && index < 3) {
 			nonUserStatusUpdate = true;
 			this.status.setSelectedIndex(index);
 		}
 	}
-	
+	/**
+	 * @param priority Sets the priority to priority
+	 */
 	public void updatePriorityDisplay(int priority) {
 		if(this.priority != null) {
 			this.priority.setText("" + priority);
 		}
 	}
-	
+	/**
+	 * Updates the due date being displayed
+	 * @param month new month
+	 * @param day new day
+	 * @param year new year
+	 */
 	public void updateDueDateDisplay(int month, int day, int year) {
 		if(this.date!= null) {
 			this.date.setText(month + "/" + day + "/" + year);
 		}
 	}
-
+	/**
+	 *Updates the priority status to the passed status
+	 *@param status new status
+	 */
 	public void updatePriorityStatus(int status) {
 		if(this.status != null) {
 			this.status.setSelectedIndex(status);
 		}
 	}
-	
+	/**
+	 * Returns the JTextArea of the list box
+	 * @return listItem JTextArea that contains the description
+	 */
 	public JTextArea getText(){
 		return listItem;
 	}
-
+	/**
+	 * Returns the current saved data
+	 */
 	public ListBoxData getSaveData() {
 		return saveData;
 	}
-	
+	/**
+	 * Sets the saved data to the passed data
+	 * @param saveData the new saveData
+	 */
 	public void setSaveData(ListBoxData saveData){
 		this.saveData = saveData;
 	}
-
+	/**
+	 * Returns the status index
+	 * @return the status index
+	 */
 	public int getIndex() {
 		return index;
 	}
-
+	/**
+	 * Sets the status index
+	 * @param index the new status index
+	 */
 	public void setIndex(int index) {
 		this.index = index;
 	}

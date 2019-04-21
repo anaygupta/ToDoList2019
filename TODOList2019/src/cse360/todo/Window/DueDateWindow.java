@@ -30,12 +30,18 @@ public class DueDateWindow extends JDialog{
 	
 	private ModifiableListBox box;
 	private int mode;
-	
+	/**
+	 * Creates a new window for the passed ListBox that is set to the passed mode
+	 * @param box the companion listbox
+	 * @param mode the mode for the due date window
+	 */
 	public DueDateWindow(ModifiableListBox box, int mode) {
 		this.box = box;
 		this.mode = mode;
 	}
-	
+	/**
+	 * Builds the due date window
+	 */
 	private void build(){
 		if(mode == DueDateWindow.DUE_DATE) {
 			this.setTitle("Set Due Date");
@@ -61,7 +67,9 @@ public class DueDateWindow extends JDialog{
 	}
 	
 	
-	
+	/**
+	 * Creates the datePanel
+	 */
 	private JPanel datePanel(){
 		JPanel dueDate = new JPanel();
 		if(mode == DueDateWindow.DUE_DATE) {
@@ -203,7 +211,9 @@ public class DueDateWindow extends JDialog{
 		return dueDate;
 	}
 	
-	
+	/**
+	 * Places build into a run queue
+	 */
 	public void start(){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override

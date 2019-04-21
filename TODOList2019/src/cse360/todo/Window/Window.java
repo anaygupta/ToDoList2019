@@ -29,9 +29,13 @@ public class Window {
 	public ScrollPanel view;
 	public InfoCard infoCard;
 	//public ImageIconLib icon;
-	
+	/**
+	 * Creates a new window object
+	 */
 	public Window() {}
-	
+	/**
+	 * Builds the window
+	 */
 	private void build()
 	{
 		index = new ListBoxLibrary(this);
@@ -68,7 +72,9 @@ public class Window {
 		frame.setVisible(true);
 		
 	}
-	
+	/**
+	 * Places builds into a run queue
+	 */
 	public void start(){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override

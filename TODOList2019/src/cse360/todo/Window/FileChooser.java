@@ -11,7 +11,9 @@ public class FileChooser
 {	
 	private JFileChooser chooser;
 	public Window window;
-	
+	/**
+	 * Creates a file chooser
+	 */
 	public FileChooser(Window window) 
 	{
 		this.window = window;
@@ -33,8 +35,9 @@ public class FileChooser
 		});
 	}
 	
-	
-	//this function shows the Save As window frame
+	/**
+	 * Displays the save as window frame
+	 */
 	public void showSaveAs()
 	{
 		chooser.setDialogTitle("Save As");
@@ -48,7 +51,9 @@ public class FileChooser
 			window.data.saveAs(path, filename, this.window);
 		}
 	}
-	
+	/**
+	 * Displays the export to text frame
+	 */
 	public void showExportToTxt()
 	{
 		chooser.setDialogTitle("Export to Text File (.txt)");
@@ -63,7 +68,9 @@ public class FileChooser
 			window.data.exportToTxt(path, filename, this.window);
 		}
 	}
-	
+	/**
+	 * Displays the open frame
+	 */
 	public void showOpen()
 	{
 		chooser.setDialogTitle("Open");

@@ -21,13 +21,18 @@ public class AddTaskWindow extends JDialog{
 	private Window window;
 	private ListBox box;
 	private ModifiableListBox lbox;
-	
+	/**
+	 * @param window the current window
+	 * @param box the AddTaskWindows companion ListBox
+	 */
 	public AddTaskWindow(Window window,ListBox box) 
 	{
 		this.window = window;
 		this.box = box;
 	}
-	
+	/**
+	 * Builds the AddTaskWindow. 
+	 */
 	private void build() 
 	{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -201,7 +206,9 @@ public class AddTaskWindow extends JDialog{
 		this.setVisible(true);
 		
 	}
-	
+	/**
+	 * Queues up the run method that builds the AddTaskWindow. 
+	 */
 	public void start(){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override

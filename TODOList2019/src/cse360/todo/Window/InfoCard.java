@@ -16,7 +16,9 @@ public class InfoCard extends JPanel{
 	private JLabel currentPath;
 	private TodoButton add;
 	public Window window;
-	
+	/**
+	 * Creates the info card object
+	 */
 	public InfoCard(Window window) {
 		this.window = window;
 		this.setLayout(new GridBagLayout());
@@ -44,7 +46,10 @@ public class InfoCard extends JPanel{
 		this.add(add, c);
 		
 	}
-	
+	/**
+	 * Sets the current path to the passed parameter
+	 * @param currentPath the new Current Path
+	 */
 	public void setCurrentPathText(String currentPath) {
 		this.currentPath.setText(currentPath);
 	}

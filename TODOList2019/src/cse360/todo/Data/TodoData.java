@@ -60,7 +60,12 @@ public class TodoData implements Serializable
 		this.filePath = filePath;
 	}
 	
-	
+	/**
+	 * Exports the Task and all its data to a text file.
+	 * @param path the location of the file
+	 * @param name name of the file
+	 * @param window the current window
+	 */
 	public void exportToTxt(String path, String name, Window window) 
 	{
 		path = path + ".txt";
